@@ -1,0 +1,245 @@
+{
+  "projectArchitecture": {
+    "overview": "Club Goose - Interactive audio-visual performance system controlled by gestures and voice",
+    "modules": {
+      "lib/eventBus.ts": {
+        "purpose": "Central event system for cross-module communication",
+        "exports": [
+          "AppEventType",
+          "AppEvent", 
+          "publish",
+          "subscribe"
+        ],
+        "functions": {
+          "publish": "Emit events to all subscribers",
+          "subscribe": "Register event listeners, returns unsubscribe function"
+        },
+        "eventTypes": {
+          "gesture": ["gesture.raiseRight", "gesture.raiseLeft", "gesture.waveRight", "gesture.waveLeft", "gesture.halt"],
+          "voice": ["voice.start", "voice.stop", "voice.faster", "voice.slower"],
+          "state": ["state.updated"],
+          "audio": ["audio.layerToggle", "audio.bpmChange"],
+          "visual": ["visual.effectTrigger", "visual.colorChange"]
+        }
+      },
+      "lib/state.ts": {
+        "purpose": "Global application state management",
+        "exports": [
+          "AppState",
+          "Layers",
+          "state",
+          "setState"
+        ],
+        "functions": {
+          "setState": "Update state and publish state.updated event"
+        },
+        "stateShape": {
+          "bpm": "number (60-180)",
+          "isPlaying": "boolean",
+          "layers": "{ drums: boolean, melody: boolean, bass: boolean, effects: boolean }",
+          "volume": "number (0-1)",
+          "visualMode": "string ('particles' | 'waves' | 'geometric')",
+          "gestureEnabled": "boolean",
+          "voiceEnabled": "boolean"
+        }
+      },
+      "lib/audio/transport.ts": {
+        "purpose": "Audio timing and playback control",
+        "exports": [
+          "AudioTransport",
+          "createTransport"
+        ],
+        "functions": {
+          "createTransport": "Initialize audio transport system",
+          "start": "Begin audio playback",
+          "stop": "Stop audio playback", 
+          "setBPM": "Update tempo",
+          "getCurrentBeat": "Get current beat position",
+          "scheduleEvent": "Schedule audio events"
+        },
+        "dependencies": ["Web Audio API", "lib/eventBus", "lib/state"]
+      },
+      "lib/audio/instruments.ts": {
+        "purpose": "Audio instrument definitions and sound generation",
+        "exports": [
+          "InstrumentType",
+          "DrumKit",
+          "MelodyInstrument", 
+          "BassInstrument",
+          "createInstrument"
+        ],
+        "functions": {
+          "createInstrument": "Factory for instrument instances",
+          "playNote": "Trigger note with velocity/timing",
+          "stopNote": "End note playback",
+          "setVolume": "Adjust instrument volume",
+          "setEffect": "Apply audio effects"
+        },
+        "instrumentTypes": ["drums", "melody", "bass", "effects"]
+      },
+      "lib/audio/soundController.ts": {
+        "purpose": "Main audio system coordinator",
+        "exports": [
+          "SoundController",
+          "createSoundController"
+        ],
+        "functions": {
+          "createSoundController": "Initialize audio system",
+          "toggleLayer": "Enable/disable instrument layers",
+          "adjustBPM": "Change tempo with smooth transition",
+          "setMasterVolume": "Control overall volume",
+          "handleGestureEvent": "Process gesture-triggered audio changes",
+          "handleVoiceEvent": "Process voice-triggered audio changes"
+        },
+        "dependencies": ["transport", "instruments", "eventBus", "state"]
+      },
+      "lib/vision/poseClient.ts": {
+        "purpose": "Body pose detection and tracking",
+        "exports": [
+          "PoseClient",
+          "PosePoint",
+          "createPoseClient"
+        ],
+        "functions": {
+          "createPoseClient": "Initialize pose detection",
+          "startDetection": "Begin pose tracking",
+          "stopDetection": "End pose tracking",
+          "getPoseData": "Get current pose landmarks",
+          "calibrate": "Set user baseline poses"
+        },
+        "dependencies": ["MediaPipe", "Camera API"]
+      },
+      "lib/vision/gestureDetector.ts": {
+        "purpose": "Gesture recognition from pose data",
+        "exports": [
+          "GestureDetector", 
+          "GestureType",
+          "createGestureDetector"
+        ],
+        "functions": {
+          "createGestureDetector": "Initialize gesture recognition",
+          "detectGesture": "Analyze pose data for gestures",
+          "addGestureListener": "Register gesture callbacks",
+          "calibrateGestures": "Set user-specific gesture thresholds"
+        },
+        "gestureMap": {
+          "raiseRight": "Right arm raised above shoulder → drums layer toggle",
+          "raiseLeft": "Left arm raised above shoulder → melody layer toggle", 
+          "waveRight": "Right hand wave motion → BPM increase",
+          "waveLeft": "Left hand wave motion → BPM decrease",
+          "halt": "Both hands up, palms forward → stop/start playback"
+        },
+        "dependencies": ["poseClient", "eventBus"]
+      },
+      "lib/visuals/visualizer.ts": {
+        "purpose": "Audio-reactive visual effects generation",
+        "exports": [
+          "Visualizer",
+          "VisualEffect",
+          "createVisualizer"
+        ],
+        "functions": {
+          "createVisualizer": "Initialize visual system",
+          "render": "Draw frame based on audio data",
+          "setVisualMode": "Change visualization type",
+          "addEffect": "Trigger visual effect",
+          "setColorPalette": "Update color scheme",
+          "handleAudioData": "Process audio frequency data"
+        },
+        "visualModes": ["particles", "waves", "geometric", "abstract"],
+        "dependencies": ["Canvas/WebGL", "eventBus", "state"]
+      },
+      "lib/voice/speechClient.ts": {
+        "purpose": "Speech recognition and processing",
+        "exports": [
+          "SpeechClient",
+          "createSpeechClient"
+        ],
+        "functions": {
+          "createSpeechClient": "Initialize speech recognition",
+          "startListening": "Begin voice command detection",
+          "stopListening": "End voice command detection",
+          "processCommand": "Parse recognized speech",
+          "setLanguage": "Configure recognition language"
+        },
+        "dependencies": ["Web Speech API"]
+      },
+      "lib/voice/voiceController.ts": {
+        "purpose": "Voice command processing and routing",
+        "exports": [
+          "VoiceController",
+          "VoiceCommand",
+          "createVoiceController"
+        ],
+        "functions": {
+          "createVoiceController": "Initialize voice control system",
+          "handleSpeechResult": "Process recognized speech",
+          "registerCommand": "Add new voice command",
+          "executeCommand": "Trigger command actions"
+        },
+        "voiceCommands": {
+          "start": "Begin playback → publish voice.start",
+          "stop": "Stop playback → publish voice.stop", 
+          "faster": "Increase BPM → publish voice.faster",
+          "slower": "Decrease BPM → publish voice.slower",
+          "drums": "Toggle drums layer → publish audio.layerToggle",
+          "melody": "Toggle melody layer → publish audio.layerToggle",
+          "particles": "Set particle visual mode → publish visual.effectTrigger",
+          "reset": "Reset to default state → publish state.updated"
+        },
+        "dependencies": ["speechClient", "eventBus"]
+      }
+    },
+    "eventFlow": {
+      "gestureToAudio": [
+        "poseClient detects pose → gestureDetector recognizes gesture → publishes gesture.* event → soundController handles event → updates audio layers/BPM → publishes audio.* event → state updated"
+      ],
+      "voiceToAudio": [
+        "speechClient captures speech → voiceController processes command → publishes voice.* event → soundController handles event → updates audio → publishes audio.* event → state updated"
+      ],
+      "audioToVisuals": [
+        "soundController generates audio → analyzes frequency data → publishes audio.* event → visualizer handles event → renders visual effects synchronized to audio"
+      ],
+      "stateUpdates": [
+        "Any module calls setState → publishes state.updated → all subscribed modules receive updated state → UI components re-render"
+      ]
+    },
+    "componentIntegration": {
+      "minimal": true,
+      "requiredProps": {
+        "app/components/StageCanvas.tsx": {
+          "purpose": "Render visualizer output",
+          "props": ["visualizerRef: RefObject<HTMLCanvasElement>"],
+          "integration": "Import createVisualizer, pass canvas ref"
+        },
+        "app/components/PermissionGate.tsx": {
+          "purpose": "Request camera/microphone permissions", 
+          "props": ["onPermissionGranted: () => void"],
+          "integration": "Initialize pose/speech clients after permission"
+        },
+        "app/components/FooterStatus.tsx": {
+          "purpose": "Display current state",
+          "props": ["state: AppState"],
+          "integration": "Subscribe to state.updated events"
+        },
+        "app/components/HudPill.tsx": {
+          "purpose": "Show gesture/voice status",
+          "props": ["gestureEnabled: boolean", "voiceEnabled: boolean"],
+          "integration": "Subscribe to detection status events"
+        }
+      }
+    },
+    "initialization": {
+      "sequence": [
+        "1. Request permissions (camera/microphone)",
+        "2. Initialize eventBus and state",
+        "3. Create audio transport and sound controller", 
+        "4. Initialize pose client and gesture detector",
+        "5. Initialize speech client and voice controller",
+        "6. Create visualizer and bind to canvas",
+        "7. Subscribe all modules to relevant events",
+        "8. Start detection loops"
+      ]
+    }
+  }
+}
