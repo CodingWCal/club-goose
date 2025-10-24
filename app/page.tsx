@@ -17,7 +17,6 @@ import { startFaceGestures, stopFaceGestures } from "@/lib/vision/faceGestures";
 import { registerVisHandlers } from "@/lib/visuals/visController";
 import { registerThemeHandlers } from "@/lib/ui/themeController";
 import { registerGestureHandlers } from "@/lib/gestures/gestureController";
-import confetti from "canvas-confetti";
 
 const ENABLE_FACE_GESTURES = false;
 
@@ -300,12 +299,12 @@ export default function Page() {
     setShowWelcome(true);
 
     // Trigger confetti animation
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff']
-    });
+    // confetti({
+    //   particleCount: 100,
+    //   spread: 70,
+    //   origin: { y: 0.6 },
+    //   colors: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3', '#54a0ff']
+    // });
 
     // Start fade out after 4 seconds, then hide after 5 seconds
     setTimeout(() => {
