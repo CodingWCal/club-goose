@@ -2,23 +2,22 @@
 
 > **Built for the "No Keyboards Allowed" Hackathon** 🚫⌨️
 
-A revolutionary hands-free music creation experience powered by voice commands, gesture recognition, and AI agents. Conduct your own electronic dance music with nothing but your voice!
+A revolutionary hands-free music creation experience powered by voice commands and AI agents. Conduct your own electronic dance music with nothing but your voice!
 
 ![Club Goose Demo](https://img.shields.io/badge/Status-Live-brightgreen) ![Voice Control](https://img.shields.io/badge/Control-Voice%20%2B%20Gestures-blue) ![AI Powered](https://img.shields.io/badge/AI-Goose%20Agents-purple)
 
 ## 🎪 What is Club Goose?
 
-Club Goose transforms music production into an immersive, hands-free experience. Simply speak to control tempo, layers, and themes while enjoying reactive visuals that pulse with the beat. Our dancing goose mascot adds playful character to the experience, making music production accessible and engaging for users of all skill levels.
+Club Goose transforms music production into an immersive, hands-free experience. Simply speak to control melody, layers, and themes while enjoying reactive visuals that pulse with the beat. Our dancing goose mascot adds playful character to the experience, making music production accessible and engaging for users of all skill levels. Currently works 100% with just voice commands and will be implementing gesture controls in the future!
 
 ### 🎯 Key Features
 
 - **🎤 Voice Control**: Complete hands-free operation using natural speech
-- **🕺 Gesture Recognition**: Control music with body movements and poses
 - **🎵 EDM House Music**: Professional-quality electronic dance music generation
 - **🎨 Reactive Visuals**: Dynamic visualizations that respond to your music
 - **🦆 Dancing Goose**: Playful mascot that reacts to the beat
 - **🎪 Club Mode**: Immersive nightclub atmosphere with enhanced visuals
-- **📱 No Keyboards Required**: 100% voice and gesture-based interaction
+- **📱 No Keyboards Required**: 100% voice-based interaction
 
 ## 🤖 AI Agent Development
 
@@ -28,7 +27,6 @@ This project was built using **Goose AI agents** for the "No Keyboards Allowed" 
 
 - **🎵 Audio Engineering**: AI agents helped design and implement the complex Tone.js audio synthesis system
 - **🎤 Voice Recognition**: Agents developed the sophisticated speech-to-command mapping system
-- **🕺 Computer Vision**: AI assisted in implementing pose detection and gesture recognition
 - **🎨 Visual Effects**: Agents created the dynamic visualizer and reactive animations
 - **🔧 State Management**: AI helped architect the event-driven state management system
 - **🎪 UI/UX Design**: Agents designed the immersive club-themed interface
@@ -95,7 +93,7 @@ Following the "No Keyboards Allowed" theme, this entire application was conceptu
 ### Prerequisites
 - Modern web browser with Web Speech API support
 - Microphone access
-- Camera access (for gesture controls)
+- Camera access (for future gesture controls)
 
 ### Installation
 
@@ -120,7 +118,7 @@ Following the "No Keyboards Allowed" theme, this entire application was conceptu
 
 5. **Grant permissions:**
    - Allow microphone access for voice commands
-   - Allow camera access for gesture recognition
+   - Allow camera access for future gesture recognition
 
 6. **Start conducting:**
    - Click "Start Conducting" or say "start"
@@ -149,14 +147,12 @@ __testVoiceCommand("lead on")
 
 ### Debug Mode
 - All voice commands are logged to console
-- Visual feedback for gesture recognition
 - Real-time state monitoring
 
 ## 🏆 Hackathon Submission
 
 ### "No Keyboards Allowed" Compliance
 - ✅ **100% Voice Control**: Complete application control via speech
-- ✅ **Gesture Recognition**: Secondary input method using body movements
 - ✅ **AI Agent Development**: Built primarily using Goose AI agents
 - ✅ **Hands-free Operation**: No keyboard or mouse required
 - ✅ **Accessibility**: Inclusive design for all users
@@ -164,7 +160,7 @@ __testVoiceCommand("lead on")
 ### Innovation Highlights
 - **AI-Assisted Development**: Demonstrates the future of software development
 - **Immersive Music Creation**: Revolutionary approach to music production
-- **Multi-modal Interaction**: Voice + gesture + visual feedback
+- **Multi-modal Interaction**: Voice + visual feedback
 - **Real-time Performance**: Low-latency audio and visual processing
 - **Professional Quality**: Production-ready EDM music generation
 
@@ -192,7 +188,6 @@ __testVoiceCommand("lead on")
 
 ### Goose Mascot
 - **Dancing Animation**: Reacts to music and user movements
-- **Pose Interaction**: Responds to user gestures
 - **Beat Synchronization**: Moves in time with the music
 - **Playful Character**: Adds personality to the experience
 
@@ -229,4 +224,4 @@ MIT License - feel free to use this project as inspiration for your own "No Keyb
 
 **Built with 🦆 Goose AI Agents for the "No Keyboards Allowed" Hackathon**
 
-*"Conduct your music with nothing but your voice and movements!"* 🎵✨
+*"Conduct your music with nothing but your voice!"* 🎵✨
