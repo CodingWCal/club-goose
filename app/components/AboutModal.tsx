@@ -67,7 +67,7 @@ export default function AboutModal({ open, onClose }: AboutModalProps) {
 
 
               <a
-                href="#"
+                href="https://github.com/CodingWCal/club-goose"
                 className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring"
                 aria-label="View README documentation"
               >
